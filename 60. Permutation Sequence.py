@@ -1,32 +1,19 @@
 class Solution:
     def getPermutation(self, n: int, k: int) -> str:
-        result = Result(k)
-        # result = []
-        path = []
-        self.dfs(1, k, result, n, path)
-        return result.res
-
-    def dfs(self, i, k, result, n, path):
-        if result.k == 0:
-            return
-        path.append(i)
-        if len(path) == n:
-            result.res = path[:]
-            result.k -= 1
-        for j in range(i + 1, n + 1):
-            self.dfs(j, k, result, n, path)
-        path.pop()
-
-
-class Result:
-    def __init__(self, k):
-        self.res = []
-        self.k = k
-x = Solution()
-print(x.getPermutation(3,3))
-print(x.getPermutation(4,9))
-
-def complement(a):
-    while True:
-        cur = a 
-
+        res_string = ''
+        # res = [i for i in range(n)]
+        factorial = [1 for i in range(n)]
+        values = [i + 1 for i in range(n)]
+        k = k - 1
+        for i in range(1, n):
+            factorial[i] = factorial[i - 1] * i
+        for i in range(n):
+            group = factorial[n - 1 - i]
+            res_string += str(values[k // group])
+            values.remove(values[k // group])
+            k = k % group
+        return res_string
+s = Solution()
+n = 4
+k = 17
+print(s.getPermutation(n,k))

@@ -9,6 +9,9 @@
 # 您在真实的面试中是否遇到过这个题？ Yes
 # 样例
 # 给定价格 = [4,4,6,1,1,4,2,5], 且 k = 2, 返回 6.
+from typing import List
+
+
 class Solution:
     """
     @param k: an integer
@@ -102,11 +105,11 @@ class Solution_leet:
         return glo[l - 1][k]
 
 
-class Solution_leet:
-    def maxProfit(self, k, prices):
+
         """
         :type k: int
-        :type prices: List[int]
+        :type prices: List[int]class Solution_leet:
+    def maxProfit(self, k, prices):
         :rtype: int
         最多k次交易
         """
@@ -134,6 +137,31 @@ class Solution_leet:
                 loc[i][j] = max(loc[i - 1][j]+diff, glo[i - 1][j - 1] + max(0,diff))
                 glo[i][j] = max(glo[i - 1][j], loc[i][j])
         return glo[l - 1][k]
+
+class Solution:
+    def maxProfit(self, k: int, prices: List[int]) -> int:
+        if not prices or len(prices) <= 1 or k == 0:
+            return 0
+        n = len(prices)
+        if k >= n // 2:
+            res = 0
+            for i in range(1, n):
+                if prices[i] - prices[i - 1] > 0:
+                    res += prices[i] - prices[i - 1]
+            return res
+        else:
+            # sell[i][j]----在第j天做了sell的动作，前j天做了i次交易，到j天为止得到最大利润
+            sell = [[0 for i in range(n)] for j in range(k + 1)]
+            # buy[i][j]----在第j天做了buy的动作，前j天做了i次交易，到j天为止得到最大利润
+            buy = [[0 for i in range(n)] for j in range(k + 1)]
+            for i in range(1, k + 1):
+                buy[i][0] = -prices[0]
+                for j in range(1, n):
+                    sell[i][j] = max(sell[i][j - 1], buy[i][j - 1] + prices[j])
+                    buy[i][j] = max(buy[i][j - 1], sell[i - 1][j - 1] - prices[j])
+        return sell[k][n - 1]
+
+
 if __name__ == "__main__":
 
     A = [2,3,5,4,6,20]

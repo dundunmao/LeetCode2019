@@ -79,6 +79,6 @@ class Solution11:
                 path.pop()
                 a[start], a[i] = a[i], a[start]
 if __name__ == '__main__':
-    nums = [1,2,3]
+    nums = [1,2,3,4]
     s= Solution11()
     print(s.permute(nums))

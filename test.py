@@ -967,25 +967,258 @@
 # consOfferd = 3
 # print(xxx(comicBook,coins, coinsNeeded, consOfferd))
 
-import random
+# import random
+#
+#
+# def selectKItems(stream, n, k):
+#     array = [0] * k
+#     # 先把前k个存array里
+#     for i in range(k):
+#         array[i] = stream[i]
+#     i = k
+#     while (i < n):
+#         # 从0到i随机取个数
+#         j = random.randrange(i + 1)
+#         # j 如果落在k里，求去替换 j 位置的数
+#         if (j < k):
+#             array[j] = stream[i]
+#         i += 1
+#     return array
 
+# def getMinimumUniqueSum(arr):
+#     # Write your code here
+#     if arr is None or len(arr) == 0:
+#         return 0
+#
+#     num_to_freq = [0 for i in range(11)]
+#     for i in range(len(arr)):
+#         num = arr[i]
+#         num_to_freq[num] += 1
+#     temp = 0
+#     not_fill = 0
+#     for i in range(1, 11):
+#         if temp == 0 and num_to_freq[i] == 0:
+#             not_fill += i
+#         elif num_to_freq[i] == 0:
+#             temp -= 1
+#         elif num_to_freq[i] > 1:
+#             temp += 1
+#         elif num_to_freq[i] == 1:
+#             continue
+#     print(not_fill)
+#     return (1 + 10) * 10 // 2 - not_fill
+# a = [2,2,2,2,2]
+# print(getMinimumUniqueSum(a))
 
-def selectKItems(stream, n, k):
-    array = [0] * k
-    # 先把前k个存array里
-    for i in range(k):
-        array[i] = stream[i]
-    i = k
-    while (i < n):
-        # 从0到i随机取个数
-        j = random.randrange(i + 1)
-        # j 如果落在k里，求去替换 j 位置的数
-        if (j < k):
-            array[j] = stream[i]
-        i += 1
-    return array
+# def shuidi(s):
+#     i = 0
+#     res = ''
+#     while i < len(s):
+#         count = 1
+#         while i < len(s) - 1 and s[i + 1] == s[i]:
+#             count += 1
+#             i += 1
+#         if ord(s[i]) - ord('a') + 1 > 9:
+#             res += (str(ord(s[i]) - ord('a') + 1)) + '#'
+#         else:
+#             res += (str(ord(s[i]) - ord('a') + 1))
+#         if count > 1:
+#             res += '(' + str(count) + ')'
+#         i += 1
+#     return res
+#
+# print(shuidi('back'))#21311#
+# print(shuidi('fooood'))
+# print(shuidi('aaabbbbaaaa'))
+# print(shuidi('sheathery'))
 
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+#
+#
+# class Solution:
+#     def __init__(self):
+#         self.error = ''
+#
+#     def ddd(self, a):
+#         aj = {}
+#         for ele in a:
+#             if ele[0] not in aj:
+#                 aj[ele[0]] = [ele[1]]
+#             else:
+#                 aj[ele[0]].append(ele[1])
+#         visited = set()
+#         head_set = {}
+#         for key, child in aj.items():
+#             if len(child) > 2:
+#                 return 'E1'
+#             if key not in visited:
+#                 pass_by = set()
+#                 node = TreeNode(key)
+#                 if not self.dfs(key, visited, aj, pass_by, node, head_set):
+#                     return self.error
+#                 head_set[key] = node
+#         if len(head_set) > 1:
+#             return 'E5'
+#         else:
+#             head = [ele for ele in head_set.values()][0]
+#             stack = []
+#             stack.append(head)
+#             res = []
+#             return self.dfs_tree(head)
+#     def dfs_tree(self, root):
+#         if not root:
+#             return ''
+#         else:
+#             left = self.dfs_tree(root.left)
+#             right = self.dfs_tree(root.right)
+#             return '(' + str(root.val) + left + right + ')'
+#
+#
+#     def dfs(self, cur, visited, aj, pass_by, node, head_set):
+#         if node.val in pass_by: # E3
+#             self.error = 'E3'
+#             return False
+#         elif node.val in head_set:
+#             head_set.remove(node.val)
+#             return True
+#         pass_by.add(node.val)
+#         if node.val in aj:
+#
+#             for child in aj[node.val]:
+#                 if child in head_set:
+#                     new = head_set[child]
+#                 elif child in visited:
+#                     self.error = 'E2'
+#                     return False
+#                 else:
+#                     new = TreeNode(child)
+#                 if not node.left:
+#                     node.left = new
+#                 elif not node.right:
+#                     node.right = new
+#                 else:
+#                     self.error = 'E1'
+#                     return False
+#                 if not self.dfs(child, visited, aj, pass_by, new, head_set):
+#                     return False
+#         visited.add(node.val)
+#         return True
+#
+# s = Solution()
+# a = [('A','C'), ('B','G'), ('C', 'H'), ('B', 'D'), ('C', 'E'), ('A', 'B'), ('E', 'F')]
+# print(s.ddd(a))
 
+# def frequency1(s):
+#     i = len(s) - 1
+#     end = i
+#     res = ''
+#     count = 1
+#     while i >= 0:
+#         if s[i] == ')':
+#             while s[i] != '(':
+#                 i -= 1
+#             count = int(s[i + 1: end])
+#
+#             i -= 1
+#             end = i
+#         else:
+#             count = 1
+#         if s[i] == '#':
+#             i -= 2
+#             ele = s[i:end]
+#         else:
+#             ele = s[i:end + 1]
+#         letter = chr(int(ele) + 97 - 1)
+#         for k in range(count):
+#             res = letter + res
+#         i -= 1
+#         end = i
+#     tem = [0] * 26
+#     for ele in res:
+#         index = ord(ele) - 97
+#         tem[index] += 1
+#     return ''.join([str(ele) for ele in tem])
+#
+#
+#
+# def frequency(s):
+#     i = len(s) - 1
+#     end = i
+#     count = 1
+#     tem = [0] * 26
+#     while i >= 0:
+#         if s[i] == ')':
+#             while s[i] != '(':
+#                 i -= 1
+#             count = int(s[i + 1: end])
+#             i -= 1
+#             end = i
+#         else:
+#             count = 1
+#         if s[i] == '#':
+#             i -= 2
+#             ele = s[i:end]
+#         else:
+#             ele = s[i:end+1]
+#         index = int(ele) - 1
+#         tem[index] += count
+#
+#         i -= 1
+#         end = i
+#     return tem
+#
+#
+# print(frequency('25#16#16#18#93(5465)'))
+# print(frequency('615#(4)4'))
+# print(frequency('1(3)2(4)1(4)'))
+# print(frequency('19#85120#8518#25#'))
+# import collections
+# def possible_word(s):
+#     q = collections.deque()
+#     hash = set()
+#     q.append((s, 0))
+#     hash.add((s, 0))
+#     res = []
+#     while q:
+#         cur, start = q.popleft()
+#         if start == len(cur):
+#             res.append(cur)
+#             continue
+#         i = start
+#         j = i + 1
+#         count = 1
+#         break_flag = False
+#         while j < len(cur):
+#             while j < len(cur) and cur[j] == cur[i]:
+#                 count += 1
+#                 j += 1
+#             if count > 2:
+#                 new1 = cur[:i] + cur[i] + cur[j:]
+#                 q.append((new1, i + 1))
+#                 new2 = cur[:i] + cur[i] + cur[i] + cur[j:]
+#                 q.append((new2, i + 2))
+#                 break_flag = True
+#                 break
+#             else:
+#                 i += 1
+#                 j = i + 1
+#         if not break_flag:
+#             res.append(cur)
+#     return res
+#
+# s = 'leetcooodeee'
+# print(possible_word1(s))
+#
+# s = 'letcooooodee'
+# print(possible_word1(s))
+
+s = 'abcdefs'
+for i in range(len(s)-1, -1, -2):
+    print(s[i])
 
 
 

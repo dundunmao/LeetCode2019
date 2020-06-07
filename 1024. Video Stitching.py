@@ -1,3 +1,6 @@
+from typing import List
+
+
 class Solution:
     def videoStitching(self, clips: List[List[int]], T: int) -> int:
         clips_object_array = []
@@ -46,20 +49,52 @@ class Clip:
             return a.end > b.end
         return a.start < b.start
 
+class Solution1:
+    def videoStitching(self, clips: List[List[int]], T: int) -> int:
+        f = [0] * (T)
+        clips.sort(key=lambda x:(x[0], -x[1]))
+        for ele in clips:
+            start = ele[0]
+            end = min(ele[1] - 1, T - 1)
+            if start >= T:
+                break
+            if f[end] != 0:
+                continue
+            min_clip = f[start - 1]
+            for i in range(start, end + 1):
+                if f[i] == 0:
+                    f[i] = min_clip + 1
+        res = 0
+        for ele in f:
+            if ele == 0:
+                return -1
+            else:
+                res = max(res, ele)
+        print(res)
+        return res
 
-s = Solution()
+
+
+s = Solution1()
 
 # a = [[0,2],[4,6],[8,10],[1,9],[1,5],[5,9]]
 # t = 10
-# print(s.videoStitching(a, t))
+# print(s.videoStitching(a, t)) # 3
+
 # a = [[0,2],[4,8]]
-# t = 5
-# print(s.videoStitching(a, t))
-# a = [[5,7],[1,8],[0,0],[2,3],[4,5],[0,6],[5,10],[7,10]]
-# t = 5
-# print(s.videoStitching(a, t))
+# t = 8
+# print(s.videoStitching(a, t)) # -1
+
+a = [[0,1],[6,8],[0,2],[5,6],[0,4],[0,3],[6,7],[1,3],[4,7],[1,4],[2,5],[2,6],[3,4],[4,5],[5,7],[6,9]]
+t = 9
+print(s.videoStitching(a, t)) # 3
+
+
+a = [[5,7],[1,8],[0,0],[2,3],[4,5],[0,6],[5,10],[7,10]]
+t = 5
+print(s.videoStitching(a, t)) # 1
 a = [[8,10],[17,39],[18,19],[8,16],[13,35],[33,39],[11,19],[18,35]]
 t = 20
-print(s.videoStitching(a, t))
+print(s.videoStitching(a, t)) # -1
 
 
